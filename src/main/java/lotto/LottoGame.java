@@ -3,13 +3,16 @@ package lotto;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LottoGame {
     public void execute() {
         int inputPurchaseMoney = purchase();
         int purchaseLottoCount = getPurchaseLottoCount(inputPurchaseMoney);
         List<Lotto> IssueLottoNumbers = getPurchaseLotto(purchaseLottoCount);
+        Lotto winningLotto = inputWinningLottoNumbers();
     }
 
     private int purchase() {
@@ -45,8 +48,28 @@ public class LottoGame {
         for (Lotto lotto : purchaseLotto) {
             lotto.printLottoNumbers();
         }
+        System.out.println();
 
         return purchaseLotto;
+    }
+
+    private Lotto inputWinningLottoNumbers() {
+        while (true) {
+            System.out.println("당첨 번호를 입력해 주세요.");
+            try {
+                List<Integer> winningNumbers = Arrays.stream(Console.readLine().split(","))
+                        .map(String::trim)
+                        .map(Integer::parseInt)
+                        .sorted()
+                        .collect(Collectors.toList());
+
+                return new Lotto(winningNumbers);
+            } catch (NumberFormatException e) {
+                System.out.println("[ERROR] 숫자만 입력해 주세요.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     private void validatePurchaseMoney(int inputPurchaseMoney) {
