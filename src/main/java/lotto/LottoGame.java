@@ -19,6 +19,7 @@ public class LottoGame {
             try {
                 inputPurchaseMoney = Integer.parseInt(Console.readLine());
                 validatePurchaseMoney(inputPurchaseMoney);
+                System.out.println();
                 return inputPurchaseMoney;
             } catch (NumberFormatException e) {
                 System.out.println("[ERROR] 숫자만 입력해 주세요.");
