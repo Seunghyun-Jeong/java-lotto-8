@@ -13,6 +13,7 @@ public class LottoGame {
         int purchaseLottoCount = getPurchaseLottoCount(inputPurchaseMoney);
         List<Lotto> IssueLottoNumbers = getPurchaseLotto(purchaseLottoCount);
         Lotto winningLotto = inputWinningLottoNumbers();
+        int bonusNumber = inputBonusNumber(winningLotto);
     }
 
     private int purchase() {
@@ -62,8 +63,24 @@ public class LottoGame {
                         .map(Integer::parseInt)
                         .sorted()
                         .collect(Collectors.toList());
-
+                System.out.println();
                 return new Lotto(winningNumbers);
+            } catch (NumberFormatException e) {
+                System.out.println("[ERROR] 숫자만 입력해 주세요.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private int inputBonusNumber(Lotto winningLotto) {
+        while (true) {
+            System.out.println("보너스 번호를 입력해 주세요.");
+            try {
+                int bonusNumber = Integer.parseInt(Console.readLine());
+                validateBonusNumber(bonusNumber);
+                System.out.println();
+                return bonusNumber;
             } catch (NumberFormatException e) {
                 System.out.println("[ERROR] 숫자만 입력해 주세요.");
             } catch (IllegalArgumentException e) {
@@ -75,6 +92,12 @@ public class LottoGame {
     private void validatePurchaseMoney(int inputPurchaseMoney) {
         if (inputPurchaseMoney % 1000 != 0) {
             throw new IllegalArgumentException("[ERROR] 1,000원 단위로 입력해 주세요.");
+        }
+    }
+
+    private void validateBonusNumber(int bonusNumber) {
+        if (bonusNumber < 1 || bonusNumber > 45) {
+            throw new IllegalArgumentException("[ERROR] 번호는 1부터 45 사이의 숫자만 입력해 주세요.");
         }
     }
 }
