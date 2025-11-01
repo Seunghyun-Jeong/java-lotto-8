@@ -20,7 +20,7 @@ public class LottoGame {
         int purchaseLottoCount = getPurchaseLottoCount(purchaseMoney);
         List<Lotto> issueLottoNumbers = getPurchaseLotto(purchaseLottoCount);
         Lotto winningLotto = inputWinningLottoNumbers();
-        int bonusNumber = inputBonusNumber(winningLotto);
+        int bonusNumber = inputBonusNumber();
         matchWinning(winningLotto, issueLottoNumbers, bonusNumber, purchaseMoney);
     }
 
@@ -81,7 +81,7 @@ public class LottoGame {
         }
     }
 
-    private int inputBonusNumber(Lotto winningLotto) {
+    private int inputBonusNumber() {
         while (true) {
             System.out.println("보너스 번호를 입력해 주세요.");
             try {
