@@ -21,7 +21,8 @@ public class LottoGame {
         List<Lotto> issueLottoNumbers = getPurchaseLotto(purchaseLottoCount);
         Lotto winningLotto = inputWinningLottoNumbers();
         int bonusNumber = inputBonusNumber(winningLotto);
-        matchWinning(winningLotto, issueLottoNumbers, bonusNumber, purchaseMoney);
+        HashMap<WinningLottoType, Integer> winningResultMap = matchWinning(winningLotto, issueLottoNumbers, bonusNumber);
+        printWinningResult(winningResultMap, purchaseMoney);
     }
 
     private int inputPurchaseMoney() {
@@ -97,9 +98,8 @@ public class LottoGame {
         }
     }
 
-    private void matchWinning(Lotto winningLotto, List<Lotto> issueLottoNumbers, int bonusNumber, int purchaseMoney) {
-        HashMap<WinningLottoType, Integer> winningResultMap = matchWinningResult(winningLotto, issueLottoNumbers, bonusNumber);
-        printWinningResult(winningResultMap, purchaseMoney);
+    private HashMap<WinningLottoType, Integer> matchWinning(Lotto winningLotto, List<Lotto> issueLottoNumbers, int bonusNumber) {
+        return matchWinningResult(winningLotto, issueLottoNumbers, bonusNumber);
     }
 
     private void printWinningResult(HashMap<WinningLottoType, Integer> winningResultMap, int purchaseMoney) {
