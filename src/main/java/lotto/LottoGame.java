@@ -11,23 +11,23 @@ import java.util.stream.Collectors;
 
 public class LottoGame {
     public void execute() {
-        int inputPurchaseMoney = purchase();
-        int purchaseLottoCount = getPurchaseLottoCount(inputPurchaseMoney);
-        List<Lotto> IssueLottoNumbers = getPurchaseLotto(purchaseLottoCount);
+        int purchaseMoney = inputPurchaseMoney();
+        int purchaseLottoCount = getPurchaseLottoCount(purchaseMoney);
+        List<Lotto> issueLottoNumbers = getPurchaseLotto(purchaseLottoCount);
         Lotto winningLotto = inputWinningLottoNumbers();
         int bonusNumber = inputBonusNumber(winningLotto);
-        matchWinning(winningLotto, IssueLottoNumbers, bonusNumber, inputPurchaseMoney);
+        matchWinning(winningLotto, issueLottoNumbers, bonusNumber, purchaseMoney);
     }
 
-    private int purchase() {
+    private int inputPurchaseMoney() {
         while (true) {
             System.out.println("구입금액을 입력해 주세요.");
-            int inputPurchaseMoney;
+            int purchaseMoney;
             try {
-                inputPurchaseMoney = Integer.parseInt(Console.readLine());
-                validatePurchaseMoney(inputPurchaseMoney);
+                purchaseMoney = Integer.parseInt(Console.readLine());
+                validatePurchaseMoney(purchaseMoney);
                 System.out.println();
-                return inputPurchaseMoney;
+                return purchaseMoney;
             } catch (NumberFormatException e) {
                 System.out.println("[ERROR] 숫자만 입력해 주세요.");
             } catch (IllegalArgumentException e) {
@@ -36,8 +36,8 @@ public class LottoGame {
         }
     }
 
-    private int getPurchaseLottoCount(int inputPurchaseMoney) {
-        int purchaseLottoCount = (inputPurchaseMoney / 1000);
+    private int getPurchaseLottoCount(int purchaseMoney) {
+        int purchaseLottoCount = (purchaseMoney / 1000);
         System.out.println(purchaseLottoCount + "개를 구매했습니다.");
         return purchaseLottoCount;
     }
@@ -92,9 +92,9 @@ public class LottoGame {
         }
     }
 
-    private void matchWinning(Lotto winningLotto, List<Lotto> IssueLottoNumbers, int bonusNumber, int inputPurchaseMoney) {
-        HashMap<WinningLottoType, Integer> winningResultMap = matchWinningResult(winningLotto, IssueLottoNumbers, bonusNumber);
-        printWinningResult(winningResultMap, inputPurchaseMoney);
+    private void matchWinning(Lotto winningLotto, List<Lotto> issueLottoNumbers, int bonusNumber, int purchaseMoney) {
+        HashMap<WinningLottoType, Integer> winningResultMap = matchWinningResult(winningLotto, issueLottoNumbers, bonusNumber);
+        printWinningResult(winningResultMap, purchaseMoney);
     }
 
     private void printWinningResult(HashMap<WinningLottoType, Integer> winningResultMap, int purchaseMoney) {
@@ -145,8 +145,8 @@ public class LottoGame {
     }
 
 
-    private void validatePurchaseMoney(int inputPurchaseMoney) {
-        if (inputPurchaseMoney % 1000 != 0) {
+    private void validatePurchaseMoney(int purchaseMoney) {
+        if (purchaseMoney % 1000 != 0) {
             throw new IllegalArgumentException("[ERROR] 1,000원 단위로 입력해 주세요.");
         }
     }
