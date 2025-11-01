@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LottoGame {
+    private static final int LOTTO_PRICE = 1000;
+    private static final int MIN_LOTTO_NUMBER = 1;
+    private static final int MAX_LOTTO_NUMBER = 45;
+    private static final int LOTTO_NUMBER_CONUT = 6;
+
     public void execute() {
         int purchaseMoney = inputPurchaseMoney();
         int purchaseLottoCount = getPurchaseLottoCount(purchaseMoney);
@@ -37,7 +42,7 @@ public class LottoGame {
     }
 
     private int getPurchaseLottoCount(int purchaseMoney) {
-        int purchaseLottoCount = (purchaseMoney / 1000);
+        int purchaseLottoCount = (purchaseMoney / LOTTO_PRICE);
         System.out.println(purchaseLottoCount + "개를 구매했습니다.");
         return purchaseLottoCount;
     }
@@ -45,7 +50,7 @@ public class LottoGame {
     private List<Lotto> getPurchaseLotto(int purchaseLottoCount) {
         List<Lotto> purchaseLotto = new ArrayList<>();
         for (int i = 0; i < purchaseLottoCount; i++) {
-            List<Integer> lottoNumbers = Randoms.pickUniqueNumbersInRange(1, 45, 6).stream().sorted().toList();
+            List<Integer> lottoNumbers = Randoms.pickUniqueNumbersInRange(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER, LOTTO_NUMBER_CONUT).stream().sorted().toList();
             purchaseLotto.add(new Lotto(lottoNumbers));
         }
 
@@ -146,13 +151,13 @@ public class LottoGame {
 
 
     private void validatePurchaseMoney(int purchaseMoney) {
-        if (purchaseMoney % 1000 != 0) {
+        if (purchaseMoney % LOTTO_PRICE != 0) {
             throw new IllegalArgumentException("[ERROR] 1,000원 단위로 입력해 주세요.");
         }
     }
 
     private void validateBonusNumber(int bonusNumber) {
-        if (bonusNumber < 1 || bonusNumber > 45) {
+        if (bonusNumber < MIN_LOTTO_NUMBER || bonusNumber > MAX_LOTTO_NUMBER) {
             throw new IllegalArgumentException("[ERROR] 번호는 1부터 45 사이의 숫자만 입력해 주세요.");
         }
     }
