@@ -13,7 +13,7 @@ public class LottoGame {
     private static final int LOTTO_PRICE = 1000;
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
-    private static final int LOTTO_NUMBER_CONUT = 6;
+    private static final int LOTTO_NUMBER_COUNT = 6;
 
     public void execute() {
         int purchaseMoney = inputPurchaseMoney();
@@ -50,7 +50,7 @@ public class LottoGame {
     private List<Lotto> getPurchaseLotto(int purchaseLottoCount) {
         List<Lotto> purchaseLotto = new ArrayList<>();
         for (int i = 0; i < purchaseLottoCount; i++) {
-            List<Integer> lottoNumbers = Randoms.pickUniqueNumbersInRange(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER, LOTTO_NUMBER_CONUT).stream().sorted().toList();
+            List<Integer> lottoNumbers = Randoms.pickUniqueNumbersInRange(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER, LOTTO_NUMBER_COUNT).stream().sorted().toList();
             purchaseLotto.add(new Lotto(lottoNumbers));
         }
 
