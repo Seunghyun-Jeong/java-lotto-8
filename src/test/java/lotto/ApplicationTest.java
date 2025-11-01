@@ -58,7 +58,7 @@ class ApplicationTest extends NsTest {
     void 구입금액이_1000원_단위가_아니면_예외발생() {
         assertSimpleTest(() -> {
             runException("2500");
-            assertThat(output()).contains(ERROR_MESSAGE);
+            assertThat(output()).contains("[ERROR] 1,000원 단위로 입력해 주세요.");
         });
     }
 
@@ -66,7 +66,7 @@ class ApplicationTest extends NsTest {
     void 당첨번호에_숫자가_아닌값_입력시_예외발생() {
         assertSimpleTest(() -> {
             runException("5000", "1,2,3,4,a,6");
-            assertThat(output()).contains(ERROR_MESSAGE);
+            assertThat(output()).contains("[ERROR] 숫자만 입력해 주세요.");
         });
     }
 
@@ -74,7 +74,7 @@ class ApplicationTest extends NsTest {
     void 보너스번호가_당첨번호와_중복되면_예외발생() {
         assertSimpleTest(() -> {
             runException("3000", "1,2,3,4,5,6", "6");
-            assertThat(output()).contains(ERROR_MESSAGE);
+            assertThat(output()).contains("[ERROR] 당첨 번호와 중복된 숫자입니다.");
         });
     }
 
@@ -82,7 +82,7 @@ class ApplicationTest extends NsTest {
     void 보너스번호가_1미만_또는_45초과면_예외발생() {
         assertSimpleTest(() -> {
             runException("3000", "1,2,3,4,5,6", "46");
-            assertThat(output()).contains(ERROR_MESSAGE);
+            assertThat(output()).contains("[ERROR] 번호는 1부터 45 사이의 숫자만 입력해 주세요.");
         });
     }
 
