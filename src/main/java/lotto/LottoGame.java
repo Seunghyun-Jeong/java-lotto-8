@@ -20,7 +20,7 @@ public class LottoGame {
         int purchaseLottoCount = getPurchaseLottoCount(purchaseMoney);
         List<Lotto> issueLottoNumbers = getPurchaseLotto(purchaseLottoCount);
         Lotto winningLotto = inputWinningLottoNumbers();
-        int bonusNumber = inputBonusNumber();
+        int bonusNumber = inputBonusNumber(winningLotto);
         matchWinning(winningLotto, issueLottoNumbers, bonusNumber, purchaseMoney);
     }
 
@@ -81,12 +81,12 @@ public class LottoGame {
         }
     }
 
-    private int inputBonusNumber() {
+    private int inputBonusNumber(Lotto winningLotto) {
         while (true) {
             System.out.println("보너스 번호를 입력해 주세요.");
             try {
                 int bonusNumber = Integer.parseInt(Console.readLine());
-                validateBonusNumber(bonusNumber);
+                validateBonusNumber(bonusNumber, winningLotto);
                 System.out.println();
                 return bonusNumber;
             } catch (NumberFormatException e) {
@@ -156,9 +156,12 @@ public class LottoGame {
         }
     }
 
-    private void validateBonusNumber(int bonusNumber) {
+    private void validateBonusNumber(int bonusNumber, Lotto winningLotto) {
         if (bonusNumber < MIN_LOTTO_NUMBER || bonusNumber > MAX_LOTTO_NUMBER) {
             throw new IllegalArgumentException("[ERROR] 번호는 1부터 45 사이의 숫자만 입력해 주세요.");
+        }
+        if (winningLotto.containBounsNumber(bonusNumber)) {
+            throw new IllegalArgumentException("[ERROR] 당첨 번호와 중복된 숫자입니다.");
         }
     }
 }
