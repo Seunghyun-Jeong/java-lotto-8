@@ -20,4 +20,22 @@ public class Lotto {
     public void printLottoNumbers() {
         System.out.println("[" + numbers.stream().map(String::valueOf).collect(Collectors.joining(", ")) + "]");
     }
+
+    public List<Integer> getNumbers() {
+        return numbers;
+    }
+
+    public int matchCount(Lotto lotto) {
+        int matchCount = 0;
+        for (Integer number : lotto.getNumbers()) {
+            if (this.numbers.contains(number)) {
+                matchCount++;
+            }
+        }
+        return matchCount;
+    }
+
+    public boolean containBounsNumber(int bonusNumber) {
+        return this.numbers.contains(bonusNumber);
+    }
 }
